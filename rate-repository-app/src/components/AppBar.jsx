@@ -9,12 +9,19 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.appBarBackground,
     flexDirection: 'row'
   },
+  scroll: {
+    paddingHorizontal: 10,
+  },
 });
 
 const AppBar = () => {
   return (
     <View style={styles.container}>
-        <ScrollView>
+        <ScrollView 
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.scroll}
+        >
             <AppBarTab />
         </ScrollView>
         

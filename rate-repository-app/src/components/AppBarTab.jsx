@@ -33,7 +33,7 @@ const AppBarTab = () => {
         <Link to='/sign-in'>
             <Text color="white" style={styles.tabText}>Sign in</Text>
         </Link>
-      </Pressable>
+      </Pressable>      
 
       
     </View>
