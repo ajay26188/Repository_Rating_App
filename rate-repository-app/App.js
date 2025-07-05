@@ -8,7 +8,6 @@ import createApolloClient from './src/utils/apolloClient';
 const apolloClient = createApolloClient();
 
 const App = () => {
-
   return (
     <NativeRouter>
       <SafeAreaProvider>

@@ -1,6 +1,7 @@
 import { Text, TextInput, Pressable, View, StyleSheet } from 'react-native';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import useSignIn from '../hooks/useSignIn';
 
 const styles = StyleSheet.create({
     container: {
@@ -34,10 +35,6 @@ const initialValues = {
   password: '',
 };
 
-const onSubmit = (values) => {
-    console.log(values);
-  };
-
 const validationSchema = yup.object().shape({
     username: yup
         .string()
@@ -48,6 +45,19 @@ const validationSchema = yup.object().shape({
 });
 
 const SignIn = () => {
+  const [signIn] = useSignIn();
+
+  const onSubmit = async (values) => {
+    const { username, password } = values;
+
+    try {
+      const { data } = await signIn({ username, password });
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -61,6 +71,7 @@ const passwordError = formik.touched.password && formik.errors.password;
   return (
     <View style={styles.container}>
       <TextInput
+        autoCapitalize="none"
         style={[styles.input, usernameError && {borderColor: '#d73a4a'}]}
         placeholder="Username"
         value={formik.values.username}
@@ -71,6 +82,7 @@ const passwordError = formik.touched.password && formik.errors.password;
       )}
 
       <TextInput
+        autoCapitalize="none"
         style={[styles.input, passwordError && {borderColor: '#d73a4a'}]}
         placeholder="Password"
         secureTextEntry
