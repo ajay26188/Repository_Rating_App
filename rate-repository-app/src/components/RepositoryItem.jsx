@@ -1,9 +1,12 @@
-import {View, StyleSheet, Image} from 'react-native'
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context'
+import {View, StyleSheet, Image, Pressable} from 'react-native'
 import Text from './Text'
 import theme from '../theme'
+import { useState } from 'react'
+import RepositoryView from './RepositoryView'
 
 const RepositoryItem = ({repository}) => {
+  const [singleView, setSingleView] = useState(false);
+
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -62,59 +65,36 @@ const RepositoryItem = ({repository}) => {
             color: '#555',
             fontSize: 14,
           },
+          button: {
+            backgroundColor: '#0366d6',
+            paddingVertical: 12,
+            paddingHorizontal: 20,
+            borderRadius: 4,
+            alignItems: 'center',
+            marginTop: 10,
+          },
+          buttonText: {
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: 16,
+          },
 });
 
-const getNumber = (number) => {
-    const newNumber = ((number/1000).toFixed(1));
-    return `${newNumber}k`
-};
+return (
+  singleView ?  (
+    <View style={styles.container}>
+      <RepositoryView repository={repository} setSingleView={setSingleView} />
+      <Pressable style={styles.button} onPress={() => console.log('single view')}>
+        <Text style={styles.buttonText}>Open in Github</Text>
+      </Pressable>
+    </View>
+  ): 
+  (
+    <RepositoryView repository={repository} setSingleView={setSingleView} />
+  )
+);
 
-    return (
-        <View style={styles.container}>
-            <SafeAreaView>
-                <View style={styles.rowContainer}>
-                    <Image
-                    source={{ uri: repository.ownerAvatarUrl }}
-                    style={styles.avatar}
-                    />
-                    <View style={styles.textContainer}>
-                    <Text fontWeight='bold' style={styles.textItem}>{repository.fullName}</Text>
-                    <Text style={styles.textItem}>{repository.description}</Text>
-                    <Text style={styles.languageContainer}>{repository.language}</Text>
-                    </View>
-                </View>
-            </SafeAreaView>
-
-            <View style={styles.statsContainer}>
-                <View style={styles.statBlock}>
-                    <Text style={styles.statNumber}>
-                    {repository.stargazersCount > 1000
-                        ? getNumber(repository.stargazersCount)
-                        : repository.stargazersCount}
-                    </Text>
-                    <Text style={styles.statLabel}>Stars</Text>
-                </View>
-
-                <View style={styles.statBlock}>
-                    <Text style={styles.statNumber}>
-                    {repository.forksCount > 1000
-                        ? getNumber(repository.forksCount)
-                        : repository.forksCount}
-                    </Text>
-                    <Text style={styles.statLabel}>Forks</Text>
-                </View>
-
-                <View style={styles.statBlock}>
-                    <Text style={styles.statNumber}>{repository.reviewCount}</Text>
-                    <Text style={styles.statLabel}>Reviews</Text>
-                </View>
-
-                <View style={styles.statBlock}>
-                    <Text style={styles.statNumber}>{repository.ratingAverage}</Text>
-                    <Text style={styles.statLabel}>Rating</Text>
-                </View>
-                </View>
-        </View>
-)
 }
+
 export default RepositoryItem;
+

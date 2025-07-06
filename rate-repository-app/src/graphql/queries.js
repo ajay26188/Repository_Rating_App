@@ -29,6 +29,16 @@ export const ME = gql`
   }
 `;
 
+export const GET_SINGLE_REPOSITORY = gql`
+  query {
+    repository {
+      id
+      fullName
+      url
+    }
+  }
+`;
+
 
 
 // other queries...
