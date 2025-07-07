@@ -49,6 +49,15 @@ const AppBarTab = () => {
       </Pressable>
 
       {user ? (
+        <Pressable style={styles.tab}>
+          <Link to='/create-a-review'>
+            <Text color="white" style={styles.tabText}>Create a review</Text>
+          </Link>
+      </Pressable>
+      ) : null
+    }
+
+      {user ? (
         <Pressable style={styles.tab} onPress={signOut}>
           <Text color="white" style={styles.tabText}>Sign out</Text>
         </Pressable>
@@ -59,6 +68,15 @@ const AppBarTab = () => {
           </Link>
         </Pressable>
       )}
+
+      {user ? null : (
+        <Pressable style={styles.tab}>
+          <Link to='/sign-up'>
+            <Text color="white" style={styles.tabText}>Sign up</Text>
+          </Link>
+      </Pressable>
+      )
+    } 
       
     </View>
   );
