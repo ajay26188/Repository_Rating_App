@@ -26,6 +26,8 @@ export const  CREATE_USER = gql`
     createUser (user: {
       username: $username,
       password: $password
-    })
+    }) {
+      username
+    }
   }
 `;
