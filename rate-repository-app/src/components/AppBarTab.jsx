@@ -9,11 +9,14 @@ import { useNavigate } from "react-router-native";
 
 const AppBarTab = () => {
   const authStorage = useAuthStorage()
-  const meQuery = useQuery(ME);
+  const { data, loading } = useQuery(ME, {
+    fetchPolicy: 'cache-and-network',
+  });
+  
   const apolloClient = useApolloClient();
   let navigate = useNavigate();
 
-  const user = meQuery.data?.me;
+  const user = data?.me;
 
   const styles = StyleSheet.create({
     container: {
@@ -52,6 +55,15 @@ const AppBarTab = () => {
         <Pressable style={styles.tab}>
           <Link to='/create-a-review'>
             <Text color="white" style={styles.tabText}>Create a review</Text>
+          </Link>
+      </Pressable>
+      ) : null
+    }
+
+    {user ? (
+        <Pressable style={styles.tab}>
+          <Link to='/my-reviews'>
+            <Text color="white" style={styles.tabText}>My reviews</Text>
           </Link>
       </Pressable>
       ) : null

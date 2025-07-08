@@ -14,7 +14,9 @@ const SignIn = () => {
       console.log(data);
       navigate('/');
     } catch (e) {
-      console.log(e);
+      console.error("Login failed:", e);
+      console.error("GraphQL errors:", e.graphQLErrors);
+      console.error("Network error:", e.networkError);
     }
   };
 
