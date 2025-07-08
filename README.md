@@ -95,6 +95,12 @@ Replace the `<ACCESS_TOKEN>` part with your access token.
 
 ## Running the expo app
 
+# Navigate into the project directory
 cd rate-repository-app
+
+# Install dependencies
 npm install
+
+# Start the Expo development server
 npm start
+
